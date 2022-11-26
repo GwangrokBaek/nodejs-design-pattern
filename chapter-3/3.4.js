@@ -23,6 +23,11 @@ function ticker(number, callback) {
 
   setTimeout(() => {
     event.emit("tick", undefined);
+    let timestamp = Date.now();
+    if (timestamp % 5 === 0) {
+      event.emit("error", new Error(timestamp));
+      return callback(new Error("Error"), count);
+    }
     repeat(count + 1, callback);
   }, 50);
 
